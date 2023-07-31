@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C395BA02A74B1A400CF4206 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C395B9F2A74B1A400CF4206 /* ListViewController.swift */; };
 		1C6582DF2A6DC4640082A8C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6582DE2A6DC4640082A8C8 /* AppDelegate.swift */; };
 		1C6582E12A6DC4640082A8C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6582E02A6DC4640082A8C8 /* SceneDelegate.swift */; };
 		1C6582E32A6DC4640082A8C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6582E22A6DC4640082A8C8 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C395B9F2A74B1A400CF4206 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		1C6582DB2A6DC4640082A8C8 /* TravelApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C6582DE2A6DC4640082A8C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C6582E02A6DC4640082A8C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				1C6582DE2A6DC4640082A8C8 /* AppDelegate.swift */,
 				1C6582E02A6DC4640082A8C8 /* SceneDelegate.swift */,
 				1C6582E22A6DC4640082A8C8 /* ViewController.swift */,
+				1C395B9F2A74B1A400CF4206 /* ListViewController.swift */,
 				1C6582E42A6DC4640082A8C8 /* Main.storyboard */,
 				1C6582EA2A6DC4650082A8C8 /* Assets.xcassets */,
 				1C6582EC2A6DC4650082A8C8 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 				1C6582E32A6DC4640082A8C8 /* ViewController.swift in Sources */,
 				1C6582E92A6DC4640082A8C8 /* TravelApp.xcdatamodeld in Sources */,
 				1C6582DF2A6DC4640082A8C8 /* AppDelegate.swift in Sources */,
+				1C395BA02A74B1A400CF4206 /* ListViewController.swift in Sources */,
 				1C6582E12A6DC4640082A8C8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
