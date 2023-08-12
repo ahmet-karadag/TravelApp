@@ -31,10 +31,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var annotationLongitude = Double()
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -85,6 +85,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                                         
                                         nameText.text = annotationTitle
                                         commentText.text = annotationSubtitle
+                                        
+                                        locationManager.startUpdatingLocation()
+                                        
+                                        let span = MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04)
+                                        let region = MKCoordinateRegion(center: coordinate, span: span)
+                                        mapView.setRegion(region, animated: true)
                                     }
                                 }
                             }
@@ -118,11 +124,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        let region = MKCoordinateRegion(center: location, span: span)
-        
-        mapView.setRegion(region, animated: true)
+        if selectedTitle == "" {
+            var location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
+            let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            let region = MKCoordinateRegion(center: location, span: span)
+            
+            mapView.setRegion(region, animated: true)
+        }else {
+            
+        }
     }
     @IBAction func save(_ sender: Any) {
         
@@ -143,7 +153,48 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }catch{
             print("error")
         }
+        NotificationCenter.default.post(name: NSNotification.Name("newPlace"), object: nil)
+        navigationController?.popViewController(animated: true)
     }
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation is MKUserLocation {
+            return nil
+        }
+        let reuseId = "annotation"
+        var pin = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKMarkerAnnotationView
+        
+        if pin == nil {
+            pin = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pin?.canShowCallout = true
+            pin?.tintColor = UIColor.black
+            
+            let button = UIButton(type: UIButton.ButtonType.detailDisclosure)
+            pin?.rightCalloutAccessoryView = button
+        }else{
+            pin?.annotation = annotation
+        }
+        
+        return pin
+    }
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if selectedTitle != ""{
+            let requestLocation = CLLocation(latitude: annotationLatitude, longitude: annotationLongitude)
+            
+            CLGeocoder().reverseGeocodeLocation(requestLocation) { (CLPlacemark, Error) in
+                
+                if let placemark = CLPlacemark {
+                    
+                    if placemark.count > 0 {
+                        let newPlace = MKPlacemark(placemark: placemark[0])
+                        let item = MKMapItem(placemark: newPlace)
+                        item.name = self.annotationTitle
+                        let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+                        item.openInMaps(launchOptions: launchOptions)
+                    }
+                }
+            }
+        }
+        
+    }
 }
-
